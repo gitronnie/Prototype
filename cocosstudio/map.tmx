@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="75" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="tileset01a" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="tileset01a.png" width="160" height="224"/>
+  <terraintypes>
+   <terrain name="New Terrain" tile="-1"/>
+  </terraintypes>
+ </tileset>
+ <tileset firstgid="25" name="tallgrass" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="tallgrass.png" width="160" height="192"/>
+ </tileset>
+ <layer name="Base" width="40" height="75">
+  <data encoding="base64" compression="zlib">
+   eJzt0rENwlAUwMAfooASRNh/W94C9Fe4sOQBbltrPaZ92sA/puf0Qv+crumN/me6py/6irP85U98xVn+8ie+4ix/+RNfcZa//ImvOMtf/sRXnOUvf+IrzvKXP/EVZ/nLn/iKs/zlT3zFWf7yJ77iLH/5E19xlr/8ia84y1/+xFec5S9/4ivO/v0P87Jchg==
+  </data>
+ </layer>
+ <layer name="Grass" width="40" height="75">
+  <data encoding="base64" compression="zlib">
+   eJztzsEJgDAUBcG0oqIS039/+QXkKPjAWdj7tKY32uo95GPhO+sr5JuPj4+Pj4+Pj48vwMXHlzAfHx8fHx8fHx8fHx8fH9/38/Hx8fHx8fHx8fX6CXksfJL0tyZnnlto
+  </data>
+ </layer>
+</map>

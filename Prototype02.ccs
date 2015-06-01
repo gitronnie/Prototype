@@ -1,0 +1,17 @@
+<Solution>
+  <PropertyGroup Name="Prototype02" Version="2.2.8.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Project Name="MainScene.csd" Type="Scene" />
+        <TmxFile Name="map.tmx" />
+        <Image Name="menu_background_new_002.png" />
+        <PlistImageFolder Image="sprites.png" PListFile="sprites.plist" Name=".sprites_PList.Dir">
+          <PlistImageFile Name="slice354_.png" Key="slice354_.png" />
+          <PlistImageFile Name="slice355_355.png" Key="slice355_355.png" />
+        </PlistImageFolder>
+        <Image Name="sprites.png" />
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>
