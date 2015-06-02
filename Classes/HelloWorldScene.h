@@ -2,6 +2,7 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+using namespace cocos2d;
 
 class HelloWorld : public cocos2d::Layer
 {
@@ -14,6 +15,16 @@ public:
 
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
+    
+private:
+    
+    Sprite* m_pMagician;
+    Sprite* m_pKnight;
+    Sprite* m_pWarrior;
+    Sprite* m_pMonster;
+    
+    void setupGameCharacters();
+    Action* createAnimation(Sprite* curSprite,SpriteFrameCache* cache,const std::string& frmName01,const std::string& frmName02);
 };
 
 #endif // __HELLOWORLD_SCENE_H__

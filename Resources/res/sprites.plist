@@ -4,6 +4,62 @@
 	<dict>
 		<key>frames</key>
 		<dict>
+			<key>slice123_.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{34,0},{15,16}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{15,16}}</string>
+				<key>sourceSize</key>
+				<string>{15,16}</string>
+			</dict>
+
+			<key>slice124_.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{17,33},{16,16}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{16,16}}</string>
+				<key>sourceSize</key>
+				<string>{16,16}</string>
+			</dict>
+
+			<key>slice251_.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{17,17},{16,15}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{16,15}}</string>
+				<key>sourceSize</key>
+				<string>{16,15}</string>
+			</dict>
+
+			<key>slice252_.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{17,0},{16,16}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{16,16}}</string>
+				<key>sourceSize</key>
+				<string>{16,16}</string>
+			</dict>
+
 			<key>slice354_.png</key>
 			<dict>
 				<key>frame</key>
@@ -19,6 +75,34 @@
 			</dict>
 
 			<key>slice355_355.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,34},{16,16}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{16,16}}</string>
+				<key>sourceSize</key>
+				<string>{16,16}</string>
+			</dict>
+
+			<key>slice368_@.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{34,17},{15,16}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{15,16}}</string>
+				<key>sourceSize</key>
+				<string>{15,16}</string>
+			</dict>
+
+			<key>slice369_@.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,0},{16,16}}</string>
@@ -39,7 +123,7 @@
 			<key>format</key>
 			<integer>2</integer>
 			<key>size</key>
-			<string>{32,64}</string>
+			<string>{64,64}</string>
 			<key>textureFileName</key>
 			<string>sprites.png</string>
 			</dict>
