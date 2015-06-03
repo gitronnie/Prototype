@@ -32,9 +32,17 @@ bool HelloWorld::init()
     }
     
     auto rootNode = CSLoader::createNode("MainScene.csb");
+    
+    auto touchListener = EventListenerTouchOneByOne::create();
+    touchListener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
+    touchListener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
+    touchListener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
+    touchListener->onTouchCancelled = CC_CALLBACK_2(HelloWorld::onTouchCancelled, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+    
     addChild(rootNode);
     setupGameCharacters();
-    
+    scheduleUpdate();
     return true;
 }
 
@@ -53,6 +61,7 @@ void HelloWorld::setupGameCharacters()
     m_pMagician->runAction( createAnimation(m_pMagician,cache,"slice123_.png","slice124_.png") );
     m_pMagician->setScale(10.0f);
     m_pMagician->setPosition(curRes.width*0.15, curRes.height*0.8);
+   
     
     m_pKnight = Sprite::createWithSpriteFrameName("slice354_.png");
     spritebatch->addChild(m_pKnight);
@@ -85,7 +94,60 @@ Action* HelloWorld::createAnimation(Sprite* curSprite,SpriteFrameCache* cache,co
     SpriteFrame* frame2 = cache->getSpriteFrameByName( frmName02 );
     animFrames.pushBack(frame2);
     auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
-
-    return RepeatForever::create( Animate::create(animation));
+    Action* curAction = RepeatForever::create( Animate::create(animation));
+    curAction->setTag(1);
+    
+    return curAction;
 }
 
+void HelloWorld::update(float delta)
+{
+    //CCLOG("%f",delta);
+    float x = m_pMonster->getPositionX();
+    x -= 0.1f;
+    m_pMonster->setPosition(x, m_pMonster->getPositionY());
+}
+
+bool HelloWorld::onTouchBegan(Touch* touch, Event* event)
+{
+    CCLOG("onTouchBegan");
+    return true;
+}
+
+void HelloWorld::onTouchEnded(Touch* touch, Event* event)
+{
+    CCLOG("onTouchEnded");
+    
+    if (m_pMagician->getActionByTag(2)||m_pKnight->getActionByTag(2)||m_pWarrior->getActionByTag(2)) {
+        return;
+    }
+    
+    Vec2 pos1 = m_pMagician->getPosition();
+    Vec2 pos2 = m_pKnight->getPosition();
+    Vec2 pos3 = m_pWarrior->getPosition();
+    
+    Action* mvMagician =MoveTo::create(0.5f, pos2);
+    mvMagician->setTag(2);
+    Action* mvKnight =MoveTo::create(0.5f, pos3);
+    mvKnight->setTag(2);
+    Action* mvWarrior =MoveTo::create(0.5f, pos1);
+    mvWarrior->setTag(2);
+    
+    m_pMagician->runAction(mvMagician);
+    m_pKnight->runAction(mvKnight);
+    m_pWarrior->runAction(mvWarrior);
+    
+    //m_pMagician->setPosition(pos2);
+    //m_pKnight->setPosition(pos3);
+    //m_pWarrior->setPosition(pos1);
+}
+
+void HelloWorld::onTouchMoved(Touch* touch, Event* event)
+{
+    CCLOG("onTouchMoved");
+}
+
+void HelloWorld::onTouchCancelled(Touch* touch, Event* event)
+{
+    CCLOG("onTouchCancelled");
+}

@@ -12,7 +12,13 @@ public:
 
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
+    void update(float delta);
 
+    virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
+    virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
+    virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
+    virtual void onTouchCancelled(cocos2d::Touch*, cocos2d::Event*);
+    
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
     
@@ -22,6 +28,7 @@ private:
     Sprite* m_pKnight;
     Sprite* m_pWarrior;
     Sprite* m_pMonster;
+    Vector<Sprite*> m_pMonsterGroup;
     
     void setupGameCharacters();
     Action* createAnimation(Sprite* curSprite,SpriteFrameCache* cache,const std::string& frmName01,const std::string& frmName02);
