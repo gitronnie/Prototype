@@ -1,10 +1,11 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#ifndef __GAMEWORLD_SCENE_H__
+#define __GAMEWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "GameSprite.h"
 using namespace cocos2d;
 
-class HelloWorld : public cocos2d::Layer
+class GameWorld : public cocos2d::Layer
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -20,18 +21,24 @@ public:
     virtual void onTouchCancelled(cocos2d::Touch*, cocos2d::Event*);
     
     // implement the "static create()" method manually
-    CREATE_FUNC(HelloWorld);
+    CREATE_FUNC(GameWorld);
     
 private:
     
-    Sprite* m_pMagician;
-    Sprite* m_pKnight;
-    Sprite* m_pWarrior;
-    Sprite* m_pMonster;
-    Vector<Sprite*> m_pMonsterGroup;
+    GameSprite* m_pMagician;
+    GameSprite* m_pKnight;
+    GameSprite* m_pWarrior;
+    bool m_isChangeScene;
+    int m_WorldCounter;
+    //GameSprite* m_pMonster;
+    Vector<GameSprite*> m_pMonsterGroup01;
+    Vector<GameSprite*> m_pMonsterGroup02;
+    Vector<GameSprite*> m_pMonsterGroup03;
     
     void setupGameCharacters();
-    Action* createAnimation(Sprite* curSprite,SpriteFrameCache* cache,const std::string& frmName01,const std::string& frmName02);
+    void setupMonsters(int laneID);
+    void changeScene();
+ 
 };
 
-#endif // __HELLOWORLD_SCENE_H__
+#endif // __GameWorld_SCENE_H__
