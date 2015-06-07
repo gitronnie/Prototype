@@ -38,6 +38,7 @@ private:
     void setupGameCharacters();
     void setupMonsters(int laneID);
     void changeScene();
+    void monsterAI(Vector<GameSprite*> &gameSpriteVector,Sprite* charSprite,int vectorIdx);
  
 };
 

@@ -23,12 +23,16 @@ public:
     void setIsDead(bool isDead);
     bool getIsDead();
     bool getGameOver();
+    bool getIsDeadAnimateEnd();
     void processAI(Rect collideBox);
     
 private:
     float m_speed;
     bool m_isDead;
+    bool m_isDeadAnimateEnd;
     bool m_isGameOver;
+    void setIsDeadAnimateEnd();
+    void animateDead();
 };
 
 #endif /* defined(__Prototype02__GameSprite__) */

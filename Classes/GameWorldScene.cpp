@@ -2,7 +2,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-#define RED_TYPE   1
+#define WHITE_TYPE   1
 #define GREEN_TYPE   2
 #define BLUE_TYPE   3
 
@@ -105,7 +105,7 @@ void GameWorld::setupMonsters(int laneID)
     monster->setFlippedX(true);
     monster->setScale(10.0f);
     
-    auto tintRed = TintTo::create(0.1f, 255,0,0);
+    //auto tintRed = TintTo::create(0.1f, 255,0,0);
     auto tintBlue = TintTo::create(0.1f, 0,255,0);
     auto tintGreen = TintTo::create(0.1f, 0,0,255);
     
@@ -118,9 +118,8 @@ void GameWorld::setupMonsters(int laneID)
     int rnd = rand()%2;
     
     switch (laneID) {
-        case RED_TYPE:
+        case WHITE_TYPE:
                     monster->setPosition(curRes.width*0.85, rndPosY[rnd]);
-                    monster->runAction(tintRed);
                     monster->setSpeed(2.0f);
                     m_pMonsterGroup01.pushBack(monster);
                     addChild(m_pMonsterGroup01.back());
@@ -155,34 +154,7 @@ void GameWorld::update(float delta)
     m_WorldCounter--;
     if(m_isChangeScene){return;}
     
-    if(m_pMonsterGroup01.size()==0)
-    {
-        setupMonsters(1);
-        return;
-    }
-    for (Vector<GameSprite*>::iterator it = m_pMonsterGroup01.begin() ; it != m_pMonsterGroup01.end(); ++it)
-    {
-        if((*it)->getIsDead())
-        {
-            this->removeChild((*it));
-            m_pMonsterGroup01.eraseObject((*it));
-            //CCLOG("vector01:%d",m_pMonsterGroup01.size());
-            if(m_pMonsterGroup01.size()==0)
-            {
-                break;
-            }
-        }
-        if((*it)->getGameOver())
-        {
-            changeScene();
-            m_isChangeScene=true;
-            break;
-        }
-        if(*it != NULL)
-        {
-           (*it)->processAI(m_pMagician->getBoundingBox());
-        }
-    }
+    monsterAI(m_pMonsterGroup01, m_pMagician, WHITE_TYPE);
     
     //Random adding
     if(m_WorldCounter == 0)
@@ -199,6 +171,40 @@ void GameWorld::changeScene()
     auto curScene = GameWorld::createScene();
     Director::getInstance()->replaceScene(curScene);
     CCLOG("change scene");
+}
+
+void GameWorld::monsterAI(Vector<GameSprite*> &gameSpriteVector,Sprite* charSprite,int vectorIdx)
+{
+    if(gameSpriteVector.size()==0)
+    {
+        setupMonsters(vectorIdx);
+        return;
+    }
+    for (Vector<GameSprite*>::iterator it = gameSpriteVector.begin() ; it != gameSpriteVector.end(); ++it)
+    {
+        if((*it)->getIsDead() && (*it)->getIsDeadAnimateEnd())
+        {
+            this->removeChild((*it));
+            (&gameSpriteVector)->eraseObject((*it));
+            
+            //CCLOG("vector01:%d",m_pMonsterGroup01.size());
+            if(gameSpriteVector.size()==0)
+            {
+                break;
+            }
+        }
+        if((*it)->getGameOver())
+        {
+            changeScene();
+            m_isChangeScene=true;
+            break;
+        }
+        if(*it != NULL)
+        {
+            (*it)->processAI(charSprite->getBoundingBox());
+        }
+    }
+
 }
 
 bool GameWorld::onTouchBegan(Touch* touch, Event* event)
