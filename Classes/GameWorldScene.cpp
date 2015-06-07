@@ -5,6 +5,7 @@
 #define WHITE_TYPE   1
 #define GREEN_TYPE   2
 #define BLUE_TYPE   3
+#define WORLD_COUNTER 150
 
 USING_NS_CC;
 
@@ -45,14 +46,17 @@ bool GameWorld::init()
     _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
     
     m_isChangeScene=false;
-    m_WorldCounter=100;
+    m_WorldCounter=WORLD_COUNTER;
+    m_Hits=0;
+    m_Misses=0;
     
     addChild(rootNode);
     setupGameCharacters();
-    setupMonsters(1);
-    setupMonsters(2);
-    setupMonsters(3);
+    setupMonsters(WHITE_TYPE);
+    setupMonsters(GREEN_TYPE);
+    setupMonsters(BLUE_TYPE);
     scheduleUpdate();
+    
     return true;
 }
 
@@ -99,9 +103,6 @@ void GameWorld::setupMonsters(int laneID)
     
     GameSprite* monster = new GameSprite("slice251_.png","slice252_.png");
     monster->autorelease();
-    //spritebatch->addChild(m_pMonster);
-    //addChild(spritebatch);
-    //addChild(monster);
     monster->setFlippedX(true);
     monster->setScale(10.0f);
     
@@ -109,32 +110,38 @@ void GameWorld::setupMonsters(int laneID)
     auto tintBlue = TintTo::create(0.1f, 0,255,0);
     auto tintGreen = TintTo::create(0.1f, 0,0,255);
     
-    //float rndPosY[3] = {(curRes.height*0.8),};
     float rndPosY[3];
     rndPosY[0] = curRes.height*0.8;
     rndPosY[1] = curRes.height*0.6;
     rndPosY[2] = curRes.height*0.4;
     
+    float rndPosX[3];
+    rndPosX[0] = (curRes.width*0.85) + monster->getBoundingBox().size.width + 10;
+    rndPosX[1] = curRes.width*0.85;
+    rndPosX[2] = (curRes.width*0.85) - monster->getBoundingBox().size.width - 10;
+    
     int rnd = rand()%2;
+    int rnd2 = rand()%2;
+    
+    monster->setPosition(rndPosX[rnd2], rndPosY[rnd]);
     
     switch (laneID) {
         case WHITE_TYPE:
-                    monster->setPosition(curRes.width*0.85, rndPosY[rnd]);
-                    monster->setSpeed(2.0f);
+                    monster->setSpeed(2.5f);
                     m_pMonsterGroup01.pushBack(monster);
                     addChild(m_pMonsterGroup01.back());
                     break;
         
         case GREEN_TYPE:
-                    monster->setPosition(curRes.width*0.85, curRes.height*0.6);
                     monster->runAction(tintGreen);
+                    monster->setSpeed(2.0f);
                     m_pMonsterGroup02.pushBack(monster);
                     addChild(m_pMonsterGroup02.back());
                     break;
             
         case BLUE_TYPE:
-                    monster->setPosition(curRes.width*0.85, curRes.height*0.4);
                     monster->runAction(tintBlue);
+                    monster->setSpeed(1.5f);
                     m_pMonsterGroup03.pushBack(monster);
                     addChild(m_pMonsterGroup03.back());
                     break;
@@ -155,14 +162,18 @@ void GameWorld::update(float delta)
     if(m_isChangeScene){return;}
     
     monsterAI(m_pMonsterGroup01, m_pMagician, WHITE_TYPE);
+    monsterAI(m_pMonsterGroup02, m_pKnight, GREEN_TYPE);
+    monsterAI(m_pMonsterGroup03, m_pWarrior, BLUE_TYPE);
     
     //Random adding
     if(m_WorldCounter == 0)
     {
-        setupMonsters(1);
+        setupMonsters(WHITE_TYPE);
+        setupMonsters(GREEN_TYPE);
+        setupMonsters(BLUE_TYPE);
         //int addProbability = rand() % 100 + 1;
         //if(addProbability > 90){setupMonsters(1);}
-        m_WorldCounter=100;
+        m_WorldCounter=WORLD_COUNTER;
     }
 }
 
@@ -184,6 +195,7 @@ void GameWorld::monsterAI(Vector<GameSprite*> &gameSpriteVector,Sprite* charSpri
     {
         if((*it)->getIsDead() && (*it)->getIsDeadAnimateEnd())
         {
+            m_Hits++;
             this->removeChild((*it));
             (&gameSpriteVector)->eraseObject((*it));
             
@@ -193,6 +205,13 @@ void GameWorld::monsterAI(Vector<GameSprite*> &gameSpriteVector,Sprite* charSpri
                 break;
             }
         }
+        
+        if((*it)->getIsMiss())
+        {
+            m_Misses++;
+            (*it)->setIsMiss(false);
+        }
+        
         if((*it)->getGameOver())
         {
             changeScene();

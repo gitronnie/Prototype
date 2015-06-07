@@ -9,7 +9,7 @@
 #include "GameSprite.h"
 #include <string.h>
 
-GameSprite::GameSprite(const std::string& frmName01,const std::string& frmName02):m_speed(0.5f),m_isDead(false),m_isGameOver(false),m_isDeadAnimateEnd(false)
+GameSprite::GameSprite(const std::string& frmName01,const std::string& frmName02):m_speed(0.5f),m_isDead(false),m_isGameOver(false),m_isDeadAnimateEnd(false),m_isMiss(false)
 {
     if(this->initWithSpriteFrameName(frmName01))
     {
@@ -63,6 +63,16 @@ bool GameSprite::getIsDeadAnimateEnd()
     return m_isDeadAnimateEnd;
 }
 
+void GameSprite::setIsMiss(bool isMiss)
+{
+    m_isMiss=isMiss;
+}
+
+bool GameSprite::getIsMiss()
+{
+    return m_isMiss;
+}
+
 void GameSprite::processAI(Rect collideBox)
 {
     auto director = Director::getInstance();
@@ -73,6 +83,7 @@ void GameSprite::processAI(Rect collideBox)
     if(curBox.intersectsRect(collideBox))
     {
         m_isDead=true;
+        m_isMiss=false;
         animateDead();
         return;
     }
@@ -82,6 +93,7 @@ void GameSprite::processAI(Rect collideBox)
         //m_isGameOver=true;
         //m_isDead=true;
         //animateDead();
+        m_isMiss=true;
         return;
     }
   

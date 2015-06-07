@@ -24,6 +24,8 @@ public:
     bool getIsDead();
     bool getGameOver();
     bool getIsDeadAnimateEnd();
+    void setIsMiss(bool isMiss);
+    bool getIsMiss();
     void processAI(Rect collideBox);
     
 private:
@@ -31,6 +33,7 @@ private:
     bool m_isDead;
     bool m_isDeadAnimateEnd;
     bool m_isGameOver;
+    bool m_isMiss;
     void setIsDeadAnimateEnd();
     void animateDead();
 };

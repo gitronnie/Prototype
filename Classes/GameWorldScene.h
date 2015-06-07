@@ -28,8 +28,11 @@ private:
     GameSprite* m_pMagician;
     GameSprite* m_pKnight;
     GameSprite* m_pWarrior;
+    
     bool m_isChangeScene;
     int m_WorldCounter;
+    int m_Hits;
+    int m_Misses;
     //GameSprite* m_pMonster;
     Vector<GameSprite*> m_pMonsterGroup01;
     Vector<GameSprite*> m_pMonsterGroup02;
